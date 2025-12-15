@@ -2,59 +2,59 @@
 
 <div align="center">
 
-![Gabon Flag](https://img.shields.io/badge/🇬🇦-Gabon-009E60?style=for-the-badge)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](docker-compose.yml)
+![Drapeau Gabon](https://img.shields.io/badge/🇬🇦-Gabon-009E60?style=for-the-badge)
+[![Docker](https://img.shields.io/badge/Docker-Prêt-2496ED?style=for-the-badge&logo=docker&logoColor=white)](docker-compose.yml)
 [![Node.js](https://img.shields.io/badge/Node.js-18-339933?style=for-the-badge&logo=node.js&logoColor=white)](package.json)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](frontend/package.json)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?style=for-the-badge&logo=postgresql&logoColor=white)](docker-compose.yml)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![Licence](https://img.shields.io/badge/Licence-MIT-green?style=for-the-badge)](LICENSE)
 
-**Modern Professional Web Application for Administrative Vehicle Registration**
+**Application Web Professionnelle pour la Gestion Administrative des Cartes Grises**
 
-[🚀 Quick Start](#-quick-start-5-minutes) • [📖 Documentation](#-documentation) • [🐳 Docker Guide](#-docker-deployment) • [🔧 Configuration](#-configuration)
+[🚀 Démarrage Rapide](#-démarrage-rapide-5-minutes) • [📖 Documentation](#-documentation) • [🐳 Guide Docker](#-déploiement-docker) • [🔧 Configuration](#-configuration)
 
 </div>
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table des Matières
 
-- [✨ Features](#-features)
-- [🚀 Quick Start (5 Minutes)](#-quick-start-5-minutes)
-- [📦 Prerequisites](#-prerequisites)
-- [🐳 Docker Deployment](#-docker-deployment)
+- [✨ Fonctionnalités](#-fonctionnalités)
+- [🚀 Démarrage Rapide (5 Minutes)](#-démarrage-rapide-5-minutes)
+- [📦 Prérequis](#-prérequis)
+- [🐳 Déploiement Docker](#-déploiement-docker)
 - [🔧 Configuration](#-configuration)
 - [📖 Documentation](#-documentation)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [🤝 Contributing](#-contributing)
+- [🛠️ Technologies Utilisées](#️-technologies-utilisées)
+- [🤝 Contribution](#-contribution)
 
 ---
 
-## ✨ Features
+## ✨ Fonctionnalités
 
-| Feature | Description |
-|---------|-------------|
-| 🎨 **Gabon Theme** | Official flag colors (Green, Yellow, Blue) |
-| 🔐 **Authentication** | JWT with refresh tokens |
-| 👥 **Dynamic Roles** | Create custom roles (Patrimoine, DCRTCT, etc.) |
-| 📱 **Responsive** | Mobile, tablet, and desktop support |
-| 🔄 **Workflows** | Configurable multi-step validation |
-| 📝 **Digital Signatures** | Secure electronic signatures |
-| 📊 **Audit Logs** | Complete action traceability |
-| 🐳 **Docker Ready** | One-command deployment |
+| Fonctionnalité | Description |
+|----------------|-------------|
+| 🎨 **Thème Gabon** | Couleurs officielles du drapeau (Vert, Jaune, Bleu) |
+| 🔐 **Authentification** | JWT avec tokens de rafraîchissement |
+| 👥 **Rôles Dynamiques** | Créez des rôles personnalisés (Patrimoine, DCRTCT, etc.) |
+| 📱 **Responsive** | Compatible mobile, tablette et ordinateur |
+| 🔄 **Workflows** | Validation multi-étapes configurable |
+| 📝 **Signatures Numériques** | Signatures électroniques sécurisées |
+| 📊 **Journaux d'Audit** | Traçabilité complète des actions |
+| 🐳 **Docker Ready** | Déploiement en une seule commande |
 
 ---
 
-## 🚀 Quick Start (5 Minutes)
+## 🚀 Démarrage Rapide (5 Minutes)
 
-### Step 1️⃣ - Clone the Repository
+### Étape 1️⃣ - Cloner le Dépôt
 
 ```bash
 git clone https://github.com/MoctarSidibe/carte-grise.git
 cd carte-grise
 ```
 
-### Step 2️⃣ - Copy Environment File
+### Étape 2️⃣ - Copier le Fichier d'Environnement
 
 ```bash
 # Windows (PowerShell)
@@ -64,122 +64,122 @@ copy .env.example .env
 cp .env.example .env
 ```
 
-### Step 3️⃣ - Start with Docker
+### Étape 3️⃣ - Démarrer avec Docker
 
 ```bash
 docker compose up -d
 ```
 
-⏳ **Wait 2-3 minutes** for all services to start.
+⏳ **Attendez 2-3 minutes** que tous les services démarrent.
 
-### Step 4️⃣ - Initialize Database
+### Étape 4️⃣ - Initialiser la Base de Données
 
 ```bash
-# Create tables
+# Créer les tables
 docker exec -i cga-postgres psql -U postgres -d cga_db < backend/scripts/02_create_tables.sql
 
-# Add initial data
+# Ajouter les données initiales
 docker exec -i cga-postgres psql -U postgres -d cga_db < backend/scripts/03_seed_data.sql
 ```
 
-### Step 5️⃣ - Access the Application
+### Étape 5️⃣ - Accéder à l'Application
 
-| Service | URL | Credentials |
-|---------|-----|-------------|
+| Service | URL | Identifiants |
+|---------|-----|--------------|
 | 🌐 **Frontend** | http://localhost | admin / Admin@123456 |
-| 🔧 **Backend API** | http://localhost:5000 | - |
-| 📚 **API Docs** | http://localhost:5000/api-docs | - |
+| 🔧 **API Backend** | http://localhost:5000 | - |
+| 📚 **Documentation API** | http://localhost:5000/api-docs | - |
 
 ---
 
-## 📦 Prerequisites
+## 📦 Prérequis
 
-### For Local Development
+### Pour le Développement Local
 
-| Software | Version | Download |
-|----------|---------|----------|
-| 🐳 **Docker Desktop** | Latest | [Download](https://www.docker.com/products/docker-desktop) |
-| 📦 **Docker Compose** | v2.0+ | Included with Docker Desktop |
-| 🔧 **Git** | Latest | [Download](https://git-scm.com/downloads) |
+| Logiciel | Version | Téléchargement |
+|----------|---------|----------------|
+| 🐳 **Docker Desktop** | Dernière | [Télécharger](https://www.docker.com/products/docker-desktop) |
+| 📦 **Docker Compose** | v2.0+ | Inclus avec Docker Desktop |
+| 🔧 **Git** | Dernière | [Télécharger](https://git-scm.com/downloads) |
 
-### For Production
+### Pour la Production
 
-| Requirement | Minimum | Recommended |
-|-------------|---------|-------------|
-| 🖥️ **CPU** | 2 cores | 4 cores |
-| 💾 **RAM** | 4 GB | 8 GB |
-| 💽 **Storage** | 20 GB | 40 GB SSD |
+| Exigence | Minimum | Recommandé |
+|----------|---------|------------|
+| 🖥️ **CPU** | 2 cœurs | 4 cœurs |
+| 💾 **RAM** | 4 Go | 8 Go |
+| 💽 **Stockage** | 20 Go | 40 Go SSD |
 | 🐧 **OS** | Ubuntu 20.04 | Ubuntu 22.04 LTS |
 
 ---
 
-## 🐳 Docker Deployment
+## 🐳 Déploiement Docker
 
-### 🟢 Development Mode
+### 🟢 Mode Développement
 
 ```bash
-# Start all services
+# Démarrer tous les services
 docker compose up -d
 
-# View logs
+# Voir les logs
 docker compose logs -f
 
-# Stop services
+# Arrêter les services
 docker compose down
 ```
 
-### 🔵 Production Mode (with Traefik)
+### 🔵 Mode Production (avec Traefik)
 
 ```bash
-# Copy Traefik environment
+# Copier l'environnement Traefik
 cp traefik/.env.traefik .env
 
-# Edit your domain and email
+# Modifier votre domaine et email
 nano .env
 
-# Start with Traefik (automatic SSL!)
+# Démarrer avec Traefik (SSL automatique!)
 docker compose -f traefik/docker-compose.traefik.yml up -d
 ```
 
-### 📊 Docker Commands Cheat Sheet
+### 📊 Aide-Mémoire des Commandes Docker
 
-| Command | Description |
-|---------|-------------|
-| `docker compose up -d` | 🚀 Start all services |
-| `docker compose down` | 🛑 Stop all services |
-| `docker compose logs -f` | 📋 View all logs |
-| `docker compose logs -f backend` | 📋 View backend logs |
-| `docker compose ps` | 📊 Check service status |
-| `docker compose restart backend` | 🔄 Restart backend |
-| `docker compose build --no-cache` | 🔨 Rebuild images |
+| Commande | Description |
+|----------|-------------|
+| `docker compose up -d` | 🚀 Démarrer tous les services |
+| `docker compose down` | 🛑 Arrêter tous les services |
+| `docker compose logs -f` | 📋 Voir tous les logs |
+| `docker compose logs -f backend` | 📋 Voir les logs du backend |
+| `docker compose ps` | 📊 Vérifier l'état des services |
+| `docker compose restart backend` | 🔄 Redémarrer le backend |
+| `docker compose build --no-cache` | 🔨 Reconstruire les images |
 
 ---
 
 ## 🔧 Configuration
 
-### Environment Variables
+### Variables d'Environnement
 
-Create a `.env` file in the root directory:
+Créez un fichier `.env` dans le répertoire racine :
 
 ```env
-# 🗄️ Database
+# 🗄️ Base de données
 DB_HOST=postgres
 DB_PORT=5432
 DB_NAME=cga_db
 DB_USER=postgres
-DB_PASSWORD=your-secure-password
+DB_PASSWORD=votre-mot-de-passe-securise
 
-# 🔐 Security (Generate with: openssl rand -base64 32)
-JWT_SECRET=your-jwt-secret-min-32-chars
-JWT_REFRESH_SECRET=your-refresh-secret-min-32-chars
-SESSION_SECRET=your-session-secret-min-32-chars
+# 🔐 Sécurité (Générer avec: openssl rand -base64 32)
+JWT_SECRET=votre-secret-jwt-min-32-caracteres
+JWT_REFRESH_SECRET=votre-secret-refresh-min-32-caracteres
+SESSION_SECRET=votre-secret-session-min-32-caracteres
 
 # 🌐 URLs
 FRONTEND_URL=http://localhost
 CORS_ORIGINS=http://localhost,http://localhost:80
 ```
 
-### 🔑 Generate Secure Secrets
+### 🔑 Générer des Secrets Sécurisés
 
 ```bash
 # Linux/Mac
@@ -193,119 +193,119 @@ openssl rand -base64 32
 
 ## 📖 Documentation
 
-### 📁 Documentation Structure
+### 📁 Structure de la Documentation
 
 ```
 📂 Documentation
-├── 📄 README.md              # This file (English)
-├── 📄 README.fr.md           # French version
+├── 📄 README.md              # Ce fichier (Français)
+├── 📄 README.fr.md           # Version française détaillée
 │
 ├── 📂 Docs/
-│   ├── 📂 French docs/       # French documentation
-│   └── 📂 divers docs/       # Additional guides
+│   ├── 📂 French docs/       # Documentation en français
+│   └── 📂 divers docs/       # Guides supplémentaires
 │
-├── 📂 docker Docs/           # Docker guides
+├── 📂 docker Docs/           # Guides Docker
 │   ├── 📄 DOCKER_DEPLOYMENT_GUIDE.md
 │   └── 📄 DOCKER_QUICK_REFERENCE.md
 │
-├── 📂 traefik/               # Traefik configuration
+├── 📂 traefik/               # Configuration Traefik
 │   └── 📄 TRAEFIK_DEPLOYMENT_GUIDE.md
 │
-├── 📂 OWASP_SECURITY/        # Security documentation
-├── 📂 Swagger/               # API documentation guides
-└── 📂 WSL_SETUP/             # Windows WSL setup guide
+├── 📂 OWASP_SECURITY/        # Documentation sécurité
+├── 📂 Swagger/               # Guides documentation API
+└── 📂 WSL_SETUP/             # Guide installation WSL Windows
 ```
 
-### 📚 Key Documents
+### 📚 Documents Clés
 
 | Document | Description |
 |----------|-------------|
-| [📄 README.fr.md](README.fr.md) | French documentation |
-| [📄 DOCKER_DEPLOYMENT_GUIDE.md](docker%20Docs/DOCKER_DEPLOYMENT_GUIDE.md) | Complete Docker setup |
-| [📄 TRAEFIK_DEPLOYMENT_GUIDE.md](traefik/TRAEFIK_DEPLOYMENT_GUIDE.md) | Production with Traefik |
-| [📄 SWAGGER_API_GUIDE.md](Swagger/SWAGGER_API_GUIDE.md) | API documentation |
-| [📄 DYNAMIC_ROLES_GUIDE.md](Docs/divers%20docs/DYNAMIC_ROLES_GUIDE.md) | Role management |
+| [📄 README.fr.md](README.fr.md) | Documentation française détaillée |
+| [📄 DOCKER_DEPLOYMENT_GUIDE.md](docker%20Docs/DOCKER_DEPLOYMENT_GUIDE.md) | Installation Docker complète |
+| [📄 TRAEFIK_DEPLOYMENT_GUIDE.md](traefik/TRAEFIK_DEPLOYMENT_GUIDE.md) | Production avec Traefik |
+| [📄 SWAGGER_API_GUIDE.md](Swagger/SWAGGER_API_GUIDE.md) | Documentation API |
+| [📄 DYNAMIC_ROLES_GUIDE.md](Docs/divers%20docs/DYNAMIC_ROLES_GUIDE.md) | Gestion des rôles |
 
 ---
 
-## 🏗️ Project Structure
+## 🏗️ Structure du Projet
 
 ```
 carte-grise/
-├── 📂 backend/                 # Node.js/Express API
-│   ├── 📂 config/              # Database configuration
-│   ├── 📂 scripts/             # SQL scripts
+├── 📂 backend/                 # API Node.js/Express
+│   ├── 📂 config/              # Configuration base de données
+│   ├── 📂 scripts/             # Scripts SQL
 │   ├── 📂 src/
-│   │   ├── 📂 controllers/     # API controllers
+│   │   ├── 📂 controllers/     # Contrôleurs API
 │   │   ├── 📂 middleware/      # Auth, RBAC, etc.
-│   │   ├── 📂 routes/          # Express routes
-│   │   ├── 📂 services/        # Business logic
-│   │   └── 📂 utils/           # Utilities
+│   │   ├── 📂 routes/          # Routes Express
+│   │   ├── 📂 services/        # Logique métier
+│   │   └── 📂 utils/           # Utilitaires
 │   ├── 📄 Dockerfile
 │   └── 📄 package.json
 │
-├── 📂 frontend/                # React application
+├── 📂 frontend/                # Application React
 │   ├── 📂 public/
 │   ├── 📂 src/
-│   │   ├── 📂 components/      # React components
-│   │   ├── 📂 contexts/        # React contexts
-│   │   ├── 📂 pages/           # Page components
-│   │   └── 📂 services/        # API services
+│   │   ├── 📂 components/      # Composants React
+│   │   ├── 📂 contexts/        # Contextes React
+│   │   ├── 📂 pages/           # Pages
+│   │   └── 📂 services/        # Services API
 │   ├── 📄 Dockerfile
 │   ├── 📄 nginx.conf
 │   └── 📄 package.json
 │
-├── 📂 traefik/                 # Traefik configuration
-├── 📄 docker-compose.yml       # Docker configuration
-├── 📄 .env.example             # Environment template
+├── 📂 traefik/                 # Configuration Traefik
+├── 📄 docker-compose.yml       # Configuration Docker
+├── 📄 .env.example             # Modèle d'environnement
 └── 📄 .gitignore
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technologies Utilisées
 
 <div align="center">
 
-| Layer | Technologies |
-|-------|--------------|
+| Couche | Technologies |
+|--------|--------------|
 | **Frontend** | ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react) ![MUI](https://img.shields.io/badge/MUI-5-007FFF?logo=mui) |
 | **Backend** | ![Node.js](https://img.shields.io/badge/Node.js-18-339933?logo=node.js) ![Express](https://img.shields.io/badge/Express-4-000000?logo=express) |
-| **Database** | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?logo=postgresql) |
-| **Auth** | ![JWT](https://img.shields.io/badge/JWT-000000?logo=jsonwebtokens) ![Bcrypt](https://img.shields.io/badge/Bcrypt-12_rounds-blue) |
-| **Container** | ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker) ![Nginx](https://img.shields.io/badge/Nginx-009639?logo=nginx) |
-| **Security** | ![Helmet](https://img.shields.io/badge/Helmet.js-gray) ![CORS](https://img.shields.io/badge/CORS-Enabled-green) |
+| **Base de données** | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?logo=postgresql) |
+| **Authentification** | ![JWT](https://img.shields.io/badge/JWT-000000?logo=jsonwebtokens) ![Bcrypt](https://img.shields.io/badge/Bcrypt-12_rounds-blue) |
+| **Conteneurisation** | ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker) ![Nginx](https://img.shields.io/badge/Nginx-009639?logo=nginx) |
+| **Sécurité** | ![Helmet](https://img.shields.io/badge/Helmet.js-gray) ![CORS](https://img.shields.io/badge/CORS-Activé-green) |
 
 </div>
 
 ---
 
-## 🔒 Security Features
+## 🔒 Fonctionnalités de Sécurité
 
-- ✅ JWT Authentication with refresh tokens
-- ✅ Bcrypt password hashing (12 rounds)
-- ✅ Role-Based Access Control (RBAC)
-- ✅ Rate limiting (100 req/15min)
-- ✅ Helmet.js security headers
-- ✅ CORS configuration
-- ✅ XSS and SQL injection protection
-- ✅ Complete audit logging
-- ✅ Non-root Docker containers
+- ✅ Authentification JWT avec tokens de rafraîchissement
+- ✅ Hachage de mots de passe Bcrypt (12 rounds)
+- ✅ Contrôle d'accès basé sur les rôles (RBAC)
+- ✅ Limitation de débit (100 req/15min)
+- ✅ En-têtes de sécurité Helmet.js
+- ✅ Configuration CORS
+- ✅ Protection XSS et injection SQL
+- ✅ Journalisation d'audit complète
+- ✅ Conteneurs Docker non-root
 
 ---
 
-## 🐛 Troubleshooting
+## 🐛 Dépannage
 
-### 🔴 Common Issues
+### 🔴 Problèmes Courants
 
 <details>
-<summary><b>Container won't start</b></summary>
+<summary><b>Le conteneur ne démarre pas</b></summary>
 
 ```bash
-# Check logs
+# Vérifier les logs
 docker compose logs backend
 
-# Clean restart
+# Redémarrage propre
 docker compose down
 docker system prune
 docker compose up -d
@@ -313,34 +313,34 @@ docker compose up -d
 </details>
 
 <details>
-<summary><b>Database connection failed</b></summary>
+<summary><b>Échec de connexion à la base de données</b></summary>
 
 ```bash
-# Check PostgreSQL status
+# Vérifier l'état de PostgreSQL
 docker compose ps postgres
 
-# Test connection
+# Tester la connexion
 docker exec -it cga-postgres psql -U postgres -d cga_db
 ```
 </details>
 
 <details>
-<summary><b>Cannot login with default credentials</b></summary>
+<summary><b>Impossible de se connecter avec les identifiants par défaut</b></summary>
 
 ```bash
-# Re-run the seed script
+# Relancer le script de seed
 docker exec -i cga-postgres psql -U postgres -d cga_db < backend/scripts/03_seed_data.sql
 ```
 </details>
 
 <details>
-<summary><b>Frontend shows blank page</b></summary>
+<summary><b>Le frontend affiche une page blanche</b></summary>
 
 ```bash
-# Check frontend logs
+# Vérifier les logs du frontend
 docker compose logs frontend
 
-# Rebuild frontend
+# Reconstruire le frontend
 docker compose build frontend
 docker compose up -d frontend
 ```
@@ -348,34 +348,34 @@ docker compose up -d frontend
 
 ---
 
-## 🤝 Contributing
+## 🤝 Contribution
 
-Contributions are welcome! Please follow these steps:
+Les contributions sont les bienvenues ! Suivez ces étapes :
 
-1. 🍴 Fork the repository
-2. 🌿 Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. 💾 Commit your changes (`git commit -m 'Add AmazingFeature'`)
-4. 📤 Push to the branch (`git push origin feature/AmazingFeature`)
-5. 🔃 Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+1. 🍴 Forkez le dépôt
+2. 🌿 Créez une branche de fonctionnalité (`git checkout -b feature/SuperFonctionnalite`)
+3. 💾 Committez vos changements (`git commit -m 'Ajout de SuperFonctionnalite'`)
+4. 📤 Poussez vers la branche (`git push origin feature/SuperFonctionnalite`)
+5. 🔃 Ouvrez une Pull Request
 
 ---
 
-## 🙏 Acknowledgments
+## 📄 Licence
+
+Ce projet est sous licence **MIT** - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
+---
+
+## 🙏 Remerciements
 
 <div align="center">
 
-Built with ❤️ for the **Gabonese Republic** 🇬🇦
+Développé avec ❤️ pour la **République Gabonaise** 🇬🇦
 
-Designed with official Gabon flag colors:
-- 🟢 Green: `#009E60`
-- 🟡 Yellow: `#FCD116`
-- 🔵 Blue: `#3A75C4`
+Conçu avec les couleurs officielles du drapeau gabonais :
+- 🟢 Vert : `#009E60`
+- 🟡 Jaune : `#FCD116`
+- 🔵 Bleu : `#3A75C4`
 
 </div>
 
@@ -383,10 +383,10 @@ Designed with official Gabon flag colors:
 
 <div align="center">
 
-**[⬆ Back to Top](#-cga---carte-grise-administrative)**
+**[⬆ Retour en haut](#-cga---carte-grise-administrative)**
 
-📧 **Questions?** Open an issue on GitHub
+📧 **Questions ?** Ouvrez une issue sur GitHub
 
-⭐ **Like this project?** Give it a star!
+⭐ **Vous aimez ce projet ?** Donnez-lui une étoile !
 
 </div>
