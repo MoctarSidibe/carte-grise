@@ -1,0 +1,78 @@
+# Traefik Static Configuration for CGA Application
+# Production-ready setup with automatic SSL/HTTPS
+
+# API and Dashboard
+api:
+  dashboard: true
+  insecure: false  # Dashboard secured with auth
+
+# Entry Points
+entryPoints:
+  # HTTP entry point (port 80)
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          permanent: true
+
+  # HTTPS entry point (port 443)
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: yourdomain.com
+            sans:
+              - www.yourdomain.com
+
+# Certificate Resolvers (Let's Encrypt)
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: your-email@example.com  # CHANGE THIS!
+      storage: /letsencrypt/acme.json
+      # Use staging for testing to avoid rate limits
+      # caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+      httpChallenge:
+        entryPoint: web
+
+# Providers
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false  # Only expose services with traefik.enable=true
+    network: cga-network
+  file:
+    directory: /etc/traefik/dynamic
+    watch: true
+
+# Logging
+log:
+  level: INFO  # DEBUG, INFO, WARN, ERROR
+  filePath: /var/log/traefik/traefik.log
+  format: json
+
+# Access Logs
+accessLog:
+  filePath: /var/log/traefik/access.log
+  format: json
+  bufferingSize: 100
+  filters:
+    statusCodes:
+      - "400-599"  # Log only errors
+
+# Metrics (Optional - for Prometheus)
+# metrics:
+#   prometheus:
+#     entryPoint: metrics
+#     addEntryPointsLabels: true
+#     addServicesLabels: true
+
+# Global Settings
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false

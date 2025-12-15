@@ -1,0 +1,180 @@
+version: '3.8'
+
+services:
+  # Traefik Reverse Proxy
+  traefik:
+    image: traefik:v2.10
+    container_name: cga-traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "80:80"      # HTTP
+      - "443:443"    # HTTPS
+      - "8080:8080"  # Dashboard (optional, can be disabled)
+    environment:
+      - TZ=Africa/Libreville  # Gabon timezone
+    volumes:
+      # Docker socket (read-only for security)
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # Static configuration
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      # Dynamic configuration
+      - ./traefik/dynamic:/etc/traefik/dynamic:ro
+      # SSL certificates storage
+      - traefik_letsencrypt:/letsencrypt
+      # Logs
+      - traefik_logs:/var/log/traefik
+    labels:
+      # Enable Traefik for this container
+      - "traefik.enable=true"
+
+      # Dashboard
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.yourdomain.com`)"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=dashboard-auth"
+    networks:
+      - cga-network
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: cga-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-cga_db}
+      PGDATA: /var/lib/postgresql/data/pgdata
+      TZ: Africa/Libreville
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/scripts:/docker-entrypoint-initdb.d:ro
+    networks:
+      - cga-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Note: PostgreSQL not exposed externally, only accessible via Docker network
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cga-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-cga_db}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      SESSION_SECRET: ${SESSION_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL:-https://yourdomain.com}
+      TZ: Africa/Libreville
+    volumes:
+      - backend_uploads:/app/uploads
+      - backend_logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      traefik:
+        condition: service_healthy
+    networks:
+      - cga-network
+    labels:
+      # Enable Traefik
+      - "traefik.enable=true"
+
+      # HTTP Router
+      - "traefik.http.routers.backend.rule=Host(`${DOMAIN:-yourdomain.com}`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.tls.certresolver=letsencrypt"
+
+      # Service
+      - "traefik.http.services.backend.loadbalancer.server.port=5000"
+
+      # Middlewares
+      - "traefik.http.routers.backend.middlewares=security-headers,rate-limit,compression"
+
+      # Health check
+      - "traefik.http.services.backend.loadbalancer.healthcheck.path=/api/health"
+      - "traefik.http.services.backend.loadbalancer.healthcheck.interval=30s"
+      - "traefik.http.services.backend.loadbalancer.healthcheck.timeout=10s"
+
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend React App
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cga-frontend
+    restart: unless-stopped
+    environment:
+      TZ: Africa/Libreville
+    depends_on:
+      - backend
+      - traefik
+    networks:
+      - cga-network
+    labels:
+      # Enable Traefik
+      - "traefik.enable=true"
+
+      # HTTP Router (main domain)
+      - "traefik.http.routers.frontend.rule=Host(`${DOMAIN:-yourdomain.com}`) || Host(`www.${DOMAIN:-yourdomain.com}`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=letsencrypt"
+
+      # Service
+      - "traefik.http.services.frontend.loadbalancer.server.port=80"
+
+      # Middlewares
+      - "traefik.http.routers.frontend.middlewares=security-headers,compression,gabon-theme"
+
+      # www redirect (optional)
+      # - "traefik.http.middlewares.redirect-www.redirectregex.regex=^https://yourdomain\\.com/(.*)"
+      # - "traefik.http.middlewares.redirect-www.redirectregex.replacement=https://www.yourdomain.com/$${1}"
+
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres_data:
+    driver: local
+  backend_uploads:
+    driver: local
+  backend_logs:
+    driver: local
+  traefik_letsencrypt:
+    driver: local
+  traefik_logs:
+    driver: local
+
+networks:
+  cga-network:
+    driver: bridge
+    name: cga-network

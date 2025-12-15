@@ -1,0 +1,111 @@
+# Traefik Dynamic Configuration - Middlewares
+# Security and performance middlewares for CGA application
+
+http:
+  middlewares:
+    # Security Headers
+    security-headers:
+      headers:
+        # Gabon Flag Colors (for reference in headers)
+        customResponseHeaders:
+          X-App-Name: "CGA-Gabon"
+          X-App-Version: "1.0.0"
+
+        # Security Headers
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        frameDeny: true
+        sslRedirect: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 31536000
+        customFrameOptionsValue: "SAMEORIGIN"
+        referrerPolicy: "no-referrer-when-downgrade"
+
+        # Content Security Policy
+        contentSecurityPolicy: |
+          default-src 'self';
+          script-src 'self' 'unsafe-inline' 'unsafe-eval';
+          style-src 'self' 'unsafe-inline';
+          img-src 'self' data: https:;
+          font-src 'self' data:;
+          connect-src 'self';
+          frame-ancestors 'self';
+
+        # Permissions Policy
+        permissionsPolicy: |
+          geolocation=(),
+          microphone=(),
+          camera=()
+
+    # Rate Limiting
+    rate-limit:
+      rateLimit:
+        average: 100
+        period: 1m
+        burst: 50
+
+    # Compression
+    compression:
+      compress:
+        excludedContentTypes:
+          - text/event-stream
+
+    # Basic Auth for Dashboard (generate with: htpasswd -nb admin password)
+    dashboard-auth:
+      basicAuth:
+        users:
+          # Default: admin / admin@cga (CHANGE THIS!)
+          # Generate new: htpasswd -nb yourusername yourpassword
+          - "admin:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/"
+        realm: "CGA Traefik Dashboard"
+
+    # CORS Headers (if needed for external API access)
+    cors-headers:
+      headers:
+        accessControlAllowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - OPTIONS
+        accessControlAllowOriginList:
+          - "*"  # CHANGE THIS to specific domains in production
+        accessControlAllowHeaders:
+          - "*"
+        accessControlMaxAge: 100
+        addVaryHeader: true
+
+    # Strip Prefix (for API routing)
+    strip-api-prefix:
+      stripPrefix:
+        prefixes:
+          - "/api"
+
+    # Retry
+    retry:
+      retry:
+        attempts: 3
+        initialInterval: 100ms
+
+    # Circuit Breaker
+    circuit-breaker:
+      circuitBreaker:
+        expression: "NetworkErrorRatio() > 0.5 || ResponseCodeRatio(500, 600, 0, 600) > 0.3"
+
+    # Redirect to www (if needed)
+    redirect-to-www:
+      redirectRegex:
+        regex: "^https://yourdomain\\.com/(.*)"
+        replacement: "https://www.yourdomain.com/${1}"
+        permanent: true
+
+    # Gabon Theme Headers (custom metadata)
+    gabon-theme:
+      headers:
+        customResponseHeaders:
+          X-Theme-Primary: "#009E60"
+          X-Theme-Secondary: "#3A75C4"
+          X-Theme-Accent: "#FCD116"
+          X-Country: "Gabon"
