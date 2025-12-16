@@ -22,21 +22,21 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#009E60', // Gabon Green
+      main: '#1976d2', // Gabon Green
       light: '#4CAF88',
-      dark: '#007045',
+      dark: '#1565c0',
       contrastText: '#FFFFFF',
     },
     secondary: {
-      main: '#3A75C4', // Gabon Blue
+      main: '#1565c0', // Gabon Blue
       light: '#6B9DD6',
-      dark: '#285491',
+      dark: '#1565c0',
       contrastText: '#FFFFFF',
     },
     gabon: {
-      green: '#009E60',
-      yellow: '#FCD116',
-      blue: '#3A75C4',
+      green: '#1976d2',
+      yellow: '#42a5f5',
+      blue: '#1565c0',
     },
     success: {
       main: '#2E7D32',
@@ -59,7 +59,7 @@ const theme = createTheme({
       dark: '#01579B',
     },
     background: {
-      default: '#F5F7FA',
+      default: '#f5f5f5',
       paper: '#FFFFFF',
     },
     text: {
@@ -166,9 +166,9 @@ const theme = createTheme({
           },
         },
         contained: {
-          background: 'linear-gradient(135deg, #009E60 0%, #FCD116 50%, #3A75C4 100%)',
+          background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 50%, #1565c0 100%)',
           '&:hover': {
-            background: 'linear-gradient(135deg, #007045 0%, #E8BE0E 50%, #285491 100%)',
+            background: 'linear-gradient(135deg, #1565c0 0%, #42a5f5 50%, #1565c0 100%)',
           },
         },
       },

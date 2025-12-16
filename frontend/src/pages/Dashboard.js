@@ -126,7 +126,7 @@ const RecentActivity = ({ activities }) => (
         >
           <Avatar
             sx={{
-              background: 'linear-gradient(135deg, #009E60 0%, #FCD116 50%, #3A75C4 100%)',
+              background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
               width: 40,
               height: 40,
               mr: 2,
@@ -173,7 +173,7 @@ const ProgressWidget = () => (
       p: 3,
       height: '100%',
       borderRadius: 3,
-      background: 'linear-gradient(135deg, #009E60 0%, #FCD116 50%, #3A75C4 100%)',
+      background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
       color: 'white',
       position: 'relative',
       overflow: 'hidden',
@@ -190,9 +190,9 @@ const ProgressWidget = () => (
         display: 'flex',
       }}
     >
-      <Box sx={{ flex: 1, background: '#009E60' }} />
-      <Box sx={{ flex: 1, background: '#FCD116' }} />
-      <Box sx={{ flex: 1, background: '#3A75C4' }} />
+      <Box sx={{ flex: 1, background: '#1976d2' }} />
+      <Box sx={{ flex: 1, background: '#42a5f5' }} />
+      <Box sx={{ flex: 1, background: '#1565c0' }} />
     </Box>
     <Typography variant="h6" fontWeight={600} gutterBottom>
       Progression du Mois
@@ -280,7 +280,7 @@ const Dashboard = () => {
     <Box
       sx={{
         minHeight: '100vh',
-        background: '#F5F7FA',
+        background: '#f5f5f5',
         py: { xs: 2, md: 4 },
         px: { xs: 2, sm: 3 },
       }}

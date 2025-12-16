@@ -77,7 +77,7 @@ const Layout = ({ children }) => {
       <Box
         sx={{
           p: 3,
-          background: 'linear-gradient(135deg, #009E60 0%, #FCD116 50%, #3A75C4 100%)',
+          background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 50%, #1565c0 100%)',
           color: 'white',
           position: 'relative',
         }}
@@ -93,9 +93,8 @@ const Layout = ({ children }) => {
             display: 'flex',
           }}
         >
-          <Box sx={{ flex: 1, background: '#009E60' }} />
-          <Box sx={{ flex: 1, background: '#FCD116' }} />
-          <Box sx={{ flex: 1, background: '#3A75C4' }} />
+          <Box sx={{ flex: 1, background: '#1976d2' }} />
+          <Box sx={{ flex: 1, background: '#42a5f5' }} />
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
@@ -133,16 +132,16 @@ const Layout = ({ children }) => {
                 }}
                 sx={{
                   borderRadius: 2,
-                  backgroundColor: isActive ? 'rgba(0, 158, 96, 0.1)' : 'transparent',
-                  borderLeft: isActive ? '4px solid #009E60' : '4px solid transparent',
+                  backgroundColor: isActive ? 'rgba(25, 118, 210, 0.1)' : 'transparent',
+                  borderLeft: isActive ? '4px solid #1976d2' : '4px solid transparent',
                   '&:hover': {
-                    backgroundColor: 'rgba(0, 158, 96, 0.05)',
+                    backgroundColor: 'rgba(25, 118, 210, 0.05)',
                   },
                 }}
               >
                 <ListItemIcon
                   sx={{
-                    color: isActive ? '#009E60' : 'text.secondary',
+                    color: isActive ? '#1976d2' : 'text.secondary',
                     minWidth: 40,
                   }}
                 >
@@ -152,7 +151,7 @@ const Layout = ({ children }) => {
                   primary={item.text}
                   primaryTypographyProps={{
                     fontWeight: isActive ? 600 : 400,
-                    color: isActive ? '#009E60' : 'text.primary',
+                    color: isActive ? '#1976d2' : 'text.primary',
                   }}
                 />
               </ListItemButton>
@@ -171,14 +170,14 @@ const Layout = ({ children }) => {
             alignItems: 'center',
             p: 2,
             borderRadius: 2,
-            bgcolor: 'rgba(0, 158, 96, 0.05)',
+            bgcolor: 'rgba(25, 118, 210, 0.05)',
           }}
         >
           <Avatar
             sx={{
               width: 40,
               height: 40,
-              bgcolor: '#009E60',
+              bgcolor: '#1976d2',
               mr: 2,
             }}
           >
@@ -205,7 +204,7 @@ const Layout = ({ children }) => {
         sx={{
           width: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { md: `${drawerWidth}px` },
-          background: 'linear-gradient(90deg, #009E60 0%, #FCD116 50%, #3A75C4 100%)',
+          background: 'linear-gradient(90deg, #1976d2 0%, #42a5f5 50%, #1565c0 100%)',
           boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
         }}
       >
@@ -275,9 +274,8 @@ const Layout = ({ children }) => {
             display: 'flex',
           }}
         >
-          <Box sx={{ flex: 1, background: '#009E60' }} />
-          <Box sx={{ flex: 1, background: '#FCD116' }} />
-          <Box sx={{ flex: 1, background: '#3A75C4' }} />
+          <Box sx={{ flex: 1, background: '#1976d2' }} />
+          <Box sx={{ flex: 1, background: '#42a5f5' }} />
         </Box>
       </AppBar>
 
@@ -321,7 +319,7 @@ const Layout = ({ children }) => {
           flexGrow: 1,
           width: { xs: '100%', md: `calc(100% - ${drawerWidth}px)` },
           minHeight: '100vh',
-          bgcolor: '#F5F7FA',
+          bgcolor: '#f5f5f5',
         }}
       >
         <Toolbar /> {/* Spacer for AppBar */}

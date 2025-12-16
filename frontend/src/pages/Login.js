@@ -61,7 +61,7 @@ const Login = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #009E60 0%, #FCD116 50%, #3A75C4 100%)',
+        background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
         padding: { xs: 1, sm: 2 },
         position: 'relative',
         overflow: 'hidden',
@@ -85,7 +85,7 @@ const Login = () => {
           left: 0,
           right: 0,
           height: '33.33%',
-          background: '#009E60'
+          background: '#1976d2'
         }} />
         <Box sx={{
           position: 'absolute',
@@ -93,7 +93,7 @@ const Login = () => {
           left: 0,
           right: 0,
           height: '33.34%',
-          background: '#FCD116'
+          background: '#42a5f5'
         }} />
         <Box sx={{
           position: 'absolute',
@@ -101,7 +101,7 @@ const Login = () => {
           left: 0,
           right: 0,
           height: '33.33%',
-          background: '#3A75C4'
+          background: '#1565c0'
         }} />
       </Box>
 
@@ -137,9 +137,9 @@ const Login = () => {
                 overflow: 'hidden',
               }}
             >
-              <Box sx={{ flex: 1, background: '#009E60' }} />
-              <Box sx={{ flex: 1, background: '#FCD116' }} />
-              <Box sx={{ flex: 1, background: '#3A75C4' }} />
+              <Box sx={{ flex: 1, background: '#1976d2' }} />
+              <Box sx={{ flex: 1, background: '#42a5f5' }} />
+              <Box sx={{ flex: 1, background: '#1565c0' }} />
             </Box>
 
             {/* Logo */}
@@ -150,8 +150,8 @@ const Login = () => {
                   mt: { xs: 2, md: 3 },
                   width: { xs: 64, md: 80 },
                   height: { xs: 64, md: 80 },
-                  background: 'linear-gradient(135deg, #009E60 0%, #FCD116 50%, #3A75C4 100%)',
-                  boxShadow: '0px 8px 24px rgba(0, 158, 96, 0.4)',
+                  background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
+                  boxShadow: '0px 8px 24px rgba(25, 118, 210, 0.4)',
                 }}
               >
                 <DirectionsCar sx={{ fontSize: { xs: 36, md: 48 } }} />
@@ -166,7 +166,7 @@ const Login = () => {
                 mb: 1,
                 fontWeight: 800,
                 fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-                background: 'linear-gradient(135deg, #009E60 0%, #FCD116 50%, #3A75C4 100%)',
+                background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 textAlign: 'center',
@@ -208,9 +208,9 @@ const Login = () => {
                 mb: 3,
               }}
             >
-              <Box sx={{ width: 24, height: 4, background: '#009E60', borderRadius: 1 }} />
-              <Box sx={{ width: 24, height: 4, background: '#FCD116', borderRadius: 1 }} />
-              <Box sx={{ width: 24, height: 4, background: '#3A75C4', borderRadius: 1 }} />
+              <Box sx={{ width: 24, height: 4, background: '#1976d2', borderRadius: 1 }} />
+              <Box sx={{ width: 24, height: 4, background: '#42a5f5', borderRadius: 1 }} />
+              <Box sx={{ width: 24, height: 4, background: '#1565c0', borderRadius: 1 }} />
             </Box>
 
             {error && (
@@ -248,10 +248,10 @@ const Login = () => {
                   mb: 2,
                   '& .MuiOutlinedInput-root': {
                     '&:hover fieldset': {
-                      borderColor: '#009E60',
+                      borderColor: '#1976d2',
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: '#009E60',
+                      borderColor: '#1976d2',
                     },
                   },
                 }}
@@ -279,10 +279,10 @@ const Login = () => {
                   mb: 3,
                   '& .MuiOutlinedInput-root': {
                     '&:hover fieldset': {
-                      borderColor: '#009E60',
+                      borderColor: '#1976d2',
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: '#009E60',
+                      borderColor: '#1976d2',
                     },
                   },
                 }}
@@ -314,15 +314,15 @@ const Login = () => {
                   py: 1.5,
                   fontSize: '1.05rem',
                   fontWeight: 600,
-                  background: 'linear-gradient(135deg, #009E60 0%, #FCD116 50%, #3A75C4 100%)',
-                  boxShadow: '0px 8px 24px rgba(0, 158, 96, 0.4)',
+                  background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
+                  boxShadow: '0px 8px 24px rgba(25, 118, 210, 0.4)',
                   '&:hover': {
-                    background: 'linear-gradient(135deg, #007045 0%, #E8BE0E 50%, #285491 100%)',
-                    boxShadow: '0px 12px 32px rgba(0, 158, 96, 0.5)',
+                    background: 'linear-gradient(135deg, #1565c0 0%, #42a5f5 50%, #1565c0 100%)',
+                    boxShadow: '0px 12px 32px rgba(25, 118, 210, 0.5)',
                     transform: 'translateY(-2px)',
                   },
                   '&:disabled': {
-                    background: 'linear-gradient(135deg, #009E6080 0%, #FCD11680 50%, #3A75C480 100%)',
+                    background: 'linear-gradient(135deg, #1976d280 0%, #42a5f580 50%, #1565c080 100%)',
                   },
                   transition: 'all 0.3s ease',
                 }}
@@ -365,9 +365,9 @@ const Login = () => {
                 overflow: 'hidden',
               }}
             >
-              <Box sx={{ flex: 1, background: '#009E60' }} />
-              <Box sx={{ flex: 1, background: '#FCD116' }} />
-              <Box sx={{ flex: 1, background: '#3A75C4' }} />
+              <Box sx={{ flex: 1, background: '#1976d2' }} />
+              <Box sx={{ flex: 1, background: '#42a5f5' }} />
+              <Box sx={{ flex: 1, background: '#1565c0' }} />
             </Box>
           </Paper>
         </Slide>
