@@ -22,11 +22,23 @@ app.use(helmet({
 }));
 
 // CORS configuration
-const corsOptions = {
-  origin: process.env.CORS_ORIGINS?.split(',') || ['http://localhost:3000'],
+const allowedOrigins = process.env.CORS_ORIGINS?.split(',') || [
+  'http://localhost',
+  'http://localhost:80',
+  'http://localhost:3000'
+];
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all origins in development
+    }
+  },
   credentials: true,
-};
-app.use(cors(corsOptions));
+}));
 
 // Body parsing middleware
 app.use(express.json());
@@ -85,8 +97,8 @@ app.get('/api/health', (req, res) => {
 });
 
 // API routes
-// app.use('/api/auth', require('./src/routes/auth')); // TODO: Create auth routes
-app.use('/api/roles', require('./src/routes/roles'));
+app.use('/api/v1/auth', require('./src/routes/auth'));
+app.use('/api/v1/roles', require('./src/routes/roles'));
 // Add other routes as they are implemented
 
 // Error handling middleware

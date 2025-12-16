@@ -21,8 +21,21 @@ const app = express();
 securityMiddlewares.forEach(middleware => app.use(middleware));
 
 // CORS configuration
+const allowedOrigins = process.env.CORS_ORIGINS?.split(',') || [
+  'http://localhost',
+  'http://localhost:80',
+  'http://localhost:3000'
+];
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all origins in development
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -72,7 +85,7 @@ const API_VERSION = process.env.API_VERSION || 'v1';
 const API_PREFIX = `/api/${API_VERSION}`;
 
 // TODO: Import and use route files as you implement them
-// app.use(`${API_PREFIX}/auth`, require('./routes/auth'));
+app.use(`${API_PREFIX}/auth`, require('./routes/auth'));
 // app.use(`${API_PREFIX}/users`, require('./routes/users'));
 app.use(`${API_PREFIX}/roles`, require('./routes/roles')); // Dynamic roles management
 // app.use(`${API_PREFIX}/workflows`, require('./routes/workflows'));

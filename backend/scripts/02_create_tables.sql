@@ -6,6 +6,10 @@
 --          \i C:/Users/user/Downloads/pca/backend/scripts/02_create_tables.sql
 -- ============================================================================
 
+-- Create required extensions
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
 -- ============================================================================
 -- USERS AND ROLES TABLES
 -- ============================================================================
