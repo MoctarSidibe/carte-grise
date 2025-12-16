@@ -1,15 +1,26 @@
-import React from 'react';
-import { Container, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Container, Grid, Paper, Typography, Box, TextField, Button, Select, MenuItem, FormControl, InputLabel, Card, CardContent, CardHeader, Stepper, Step, StepLabel, Alert, Chip, FormControlLabel, Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
+import { Save, Delete, Info, CheckCircle, CloudUpload, ArrowBack, ArrowForward } from '@mui/icons-material';
 
-const NewApplication = () => {
-  return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        Nouvelle Demande
-      </Typography>
-      <Typography>Formulaire dynamique à implémenter</Typography>
-    </Container>
-  );
+const NA = () => {
+  const [step, setStep] = useState(0);
+  const [data, setData] = useState({applicantName:'', email:'', phoneNumber:'', vehicleType:'voiture', manufacturerName:'', chassisNumber:'', fuelType:'essence', powerCV:'', color:'', notes:''});
+  const [docs, setDocs] = useState([{id:1, name:'Identity', type:'pdf', status:'pending', date:null}, {id:2, name:'Registration', type:'pdf', status:'pending', date:null}, {id:3, name:'Insurance', type:'pdf', status:'pending', date:null}, {id:4, name:'Inspection', type:'pdf', status:'pending', date:null}]);
+  const [delDlg, setDelDlg] = useState(false);
+  const [selDoc, setSelDoc] = useState(null);
+  const [msg, setMsg] = useState('');
+  const [err, setErr] = useState('');
+  const steps = ['Applicant', 'Vehicle', 'Documents', 'Review'];
+
+  const handleChange = (e) => { const {name, value} = e.target; setData(p => ({...p, [name]: value})); };
+  const next = () => { if((step===0 && data.applicantName && data.email) || (step===1 && data.manufacturerName && data.chassisNumber) || (step===2 && docs.filter(d=>d.status==='uploaded').length>=2) || step===3) { setStep(p=>p+1); setMsg('OK'); } else { setErr('Fill required'); } setTimeout(()=>setMsg(''),3000); setTimeout(()=>setErr(''),3000); };
+  const back = () => { setStep(p=>p-1); };
+  const upload = (id) => { setDocs(docs.map(d => d.id===id ? {...d, status:'uploaded', date: new Date().toLocaleDateString()} : d)); setMsg('Uploaded'); setTimeout(()=>setMsg(''),3000); };
+  const del = (id) => { setSelDoc(id); setDelDlg(true); };
+  const confirmDel = () => { setDocs(docs.map(d => d.id===selDoc ? {...d, status:'pending', date:null} : d)); setDelDlg(false); setMsg('Removed'); setTimeout(()=>setMsg(''),3000); };
+  const submit = () => { setMsg('Submitted'); setData({applicantName:'', email:'', phoneNumber:'', vehicleType:'voiture', manufacturerName:'', chassisNumber:'', fuelType:'essence', powerCV:'', color:'', notes:''}); setStep(0); setDocs(docs.map(d=>({...d, status:'pending', date:null}))); setTimeout(()=>setMsg(''),4000); };
+
+  return (<Container maxWidth="lg" sx={{py:{xs:2,md:4}}}><Box sx={{mb:4}}><Typography variant="h4" sx={{color:'#1976d2', fontWeight:'bold'}}>New Application</Typography></Box>{msg && <Alert sx={{mb:3, backgroundColor:'#c8e6c9'}}>{msg}</Alert>}{err && <Alert severity="error" sx={{mb:3, backgroundColor:'#ffcdd2'}}>{err}</Alert>}<Paper sx={{p:{xs:2,md:4}}}><Stepper activeStep={step}>{steps.map(l=><Step key={l}><StepLabel>{l}</StepLabel></Step>)}</Stepper><Box sx={{minHeight:'400px', mb:4}}>{step===0 && <Grid container spacing={3}><Grid item xs={12} sm={6}><TextField fullWidth label="Name" name="applicantName" value={data.applicantName} onChange={handleChange} /></Grid><Grid item xs={12} sm={6}><TextField fullWidth label="Email" name="email" value={data.email} onChange={handleChange} /></Grid><Grid item xs={12} sm={6}><TextField fullWidth label="Phone" name="phoneNumber" value={data.phoneNumber} onChange={handleChange} /></Grid><Grid item xs={12} sm={6}><FormControl fullWidth><InputLabel>Type</InputLabel><Select name="vehicleType" value={data.vehicleType} onChange={handleChange} label="Type"><MenuItem value="voiture">Car</MenuItem><MenuItem value="moto">Moto</MenuItem></Select></FormControl></Grid></Grid>}{step===1 && <Grid container spacing={3}><Grid item xs={12} sm={6}><TextField fullWidth label="Manufacturer" name="manufacturerName" value={data.manufacturerName} onChange={handleChange} /></Grid><Grid item xs={12} sm={6}><TextField fullWidth label="Chassis" name="chassisNumber" value={data.chassisNumber} onChange={handleChange} /></Grid><Grid item xs={12} sm={6}><TextField fullWidth label="Color" name="color" value={data.color} onChange={handleChange} /></Grid><Grid item xs={12} sm={6}><TextField fullWidth label="Power" name="powerCV" value={data.powerCV} onChange={handleChange} /></Grid><Grid item xs={12}><TextField fullWidth label="Notes" name="notes" value={data.notes} onChange={handleChange} multiline rows={3} /></Grid></Grid>}{step===2 && <Box><TableContainer component={Paper} sx={{mb:2}}><Table><TableHead><TableRow sx={{backgroundColor:'#1976d2'}}><TableCell sx={{color:'#fff'}}>Doc</TableCell><TableCell sx={{color:'#fff'}}>Type</TableCell><TableCell sx={{color:'#fff'}}>Status</TableCell><TableCell sx={{color:'#fff'}}>Action</TableCell></TableRow></TableHead><TableBody>{docs.map(d=><TableRow key={d.id}><TableCell>{d.name}</TableCell><TableCell><Chip label={d.type} size="small" /></TableCell><TableCell><Chip label={d.status} color={d.status==='uploaded'?'success':'default'} /></TableCell><TableCell>{d.status==='pending'?<Button size="small" onClick={()=>upload(d.id)}>Upload</Button>:<IconButton size="small" onClick={()=>del(d.id)}><Delete /></IconButton>}</TableCell></TableRow>)}</TableBody></Table></TableContainer><Alert>Upload 2+ docs</Alert></Box>}{step===3 && <Card><CardContent><Grid container spacing={2}><Grid item xs={12}><Typography><strong>Name:</strong> {data.applicantName}</Typography></Grid><Grid item xs={12}><Typography><strong>Email:</strong> {data.email}</Typography></Grid><Grid item xs={12}><Typography><strong>Vehicle:</strong> {data.manufacturerName} ({data.vehicleType})</Typography></Grid><Grid item xs={12}><Typography><strong>Docs uploaded:</strong> {docs.filter(d=>d.status==='uploaded').length}</Typography></Grid></Grid></CardContent></Card>}</Box><Box sx={{display:'flex', gap:2, justifyContent:'space-between'}}><Button disabled={step===0} onClick={back} variant="outlined">Back</Button>{step===steps.length-1?<Button onClick={submit} variant="contained" sx={{backgroundColor:'#1976d2', color:'#fff'}}>Submit</Button>:<Button onClick={next} variant="contained" sx={{backgroundColor:'#1976d2', color:'#fff'}}>Next</Button>}</Box></Paper><Dialog open={delDlg} onClose={()=>setDelDlg(false)}><DialogTitle>Remove?</DialogTitle><DialogContent>Delete this document?</DialogContent><DialogActions><Button onClick={()=>setDelDlg(false)}>Cancel</Button><Button onClick={confirmDel} color="error">Remove</Button></DialogActions></Dialog></Container>);
 };
 
-export default NewApplication;
+export default NA;
